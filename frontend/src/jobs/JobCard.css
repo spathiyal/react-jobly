@@ -1,0 +1,43 @@
+/* JobStyles.css */
+
+/* JobCard */
+.JobCard {
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin: 10px;
+  text-decoration: none;
+  color: #333;
+  width: 800px;
+}
+
+.JobCard:hover {
+  border-color: #007bff;
+}
+
+.JobCard h6 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.JobCard p {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Center and create two columns */
+.JobCardList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.JobCard button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  margin-top: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}

@@ -1,0 +1,36 @@
+/* Navigation.css */
+
+.navbar {
+  background: #333;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-right: 15px;
+}
+
+.nav-link,
+.navbar-brand-jobly {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.nav-item.active .nav-link,
+.navbar-brand-jobly.active {
+  font-weight: bold;
+}
