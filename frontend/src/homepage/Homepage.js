@@ -18,7 +18,7 @@ function Homepage() {
 
   return (
     <div className="Homepage text-center">
-      <div className="container">
+      <div className="HomeForm container">
         <h1 className="mb-4 fw-bold">Jobly</h1>
         <p className="lead">All the jobs in one, convenient place.</p>
         {currentUser ? (
