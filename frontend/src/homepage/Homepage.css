@@ -1,14 +1,42 @@
 .Homepage {
   /* put around the vertical center of page */
-  height: calc(100vh - 150px);
-  display: flex;
-  align-items: center;
+  height: calc(100vh - 50px);
+  background-image: url("food.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+}
+.HomeForm{
+  height: calc(100vh - 50px);
+}
+/* .HomeForm {
+  /* margin: 100px auto;
+  max-width: 100px;
+  padding: 5px; */
+
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+img {
+
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+
 }
 
-.HomeForm {
-  margin: 20px auto;
-  max-width: 400px;
-  padding: 15px;
-  /* border: 1px solid #ddd; */
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-}
+
+ #centerDivStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh
+};
+ #centerh1Style   {
+  font-size:60px;
+  color: beige
+
+
+};

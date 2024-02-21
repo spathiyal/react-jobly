@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Alert from "../common/Alert";
-import JoblyApi from "../api/api";
+import PantryApi from "../api/api";
 import UserContext from "../auth/UserContext";
 import "./ProfileForm.css";
 
@@ -68,7 +68,7 @@ function ProfileForm() {
     let updatedUser;
 
     try {
-      updatedUser = await JoblyApi.saveProfile(username, profileData);
+      updatedUser = await PantryApi.saveProfile(username, profileData);
     } catch (errors) {
       setFormErrors(errors);
       return;
@@ -96,61 +96,63 @@ function ProfileForm() {
   }
 
   return (
-    <div className="ProfileForm col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-      <h3>Profile</h3>
-      <div className="card">
-        <div className="card-body">
-          <form>
-            <div className="mb-3">
-              <label className="form-label">Username</label>
-              <input
-                disabled
-                className="form-control"
-                placeholder={formData.username}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">First Name</label>
-              <input
-                name="firstName"
-                className="form-control"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Last Name</label>
-              <input
-                name="lastName"
-                className="form-control"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Email</label>
-              <input
-                name="email"
-                className="form-control"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
+    <div className="min-h-screen bg-amber-700">
+      <div className="ProfileForm">
+        <h3 className="text-white">Profile</h3>
+        <div>
+          <div>
+            <form>
+              <div>
+                <label className="form-label text-white ">Username</label>
+                <input
+                  disabled
+                  className="form-control"
+                  placeholder={formData.username}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label text-white">First Name</label>
+                <input
+                  name="firstName"
+                  className="form-control"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label text-white">Last Name</label>
+                <input
+                  name="lastName"
+                  className="form-control"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label text-white">Email</label>
+                <input
+                  name="email"
+                  className="form-control"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
 
-            {formErrors.length ? (
-              <Alert type="danger" messages={formErrors} />
-            ) : null}
+              {formErrors.length ? (
+                <Alert type="danger" messages={formErrors} />
+              ) : null}
 
-            {saveConfirmed ? (
-              <Alert type="success" messages={["Updated successfully."]} />
-            ) : null}
+              {saveConfirmed ? (
+                <Alert type="success" messages={["Updated successfully."]} />
+              ) : null}
 
-            <div className="d-grid">
-              <button className="btn btn-primary" onClick={handleSubmit}>
-                Save Changes
-              </button>
-            </div>
-          </form>
+              <div className="d-grid">
+                <button className="btn btn-primary" onClick={handleSubmit}>
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

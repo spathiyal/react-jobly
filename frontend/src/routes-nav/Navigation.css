@@ -1,8 +1,8 @@
 /* Navigation.css */
 
 .navbar {
-  background: #333;
-  padding: 15px;
+  background: #0c0c0c;
+  padding: 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,7 +20,7 @@
 }
 
 .nav-link,
-.navbar-brand-jobly {
+.navbar-brand-pantry {
   text-decoration: none;
   color: #fff;
   font-size: 18px;
@@ -28,9 +28,11 @@
 
 .nav-link:hover {
   text-decoration: underline;
+  text-decoration:wavy;
+
 }
 
 .nav-item.active .nav-link,
-.navbar-brand-jobly.active {
+.navbar-brand-pantry.active {
   font-weight: bold;
 }

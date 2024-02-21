@@ -3,17 +3,17 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import Navigation from "./routes-nav/Navigation";
 import RoutesList from "./routes-nav/RoutesList";
 import LoadingSpinner from "./common/LoadingSpinner";
-import JoblyApi from "./api/api";
+import PantryApi from "./api/api";
 import UserContext from "./auth/UserContext";
 import { jwtDecode } from "jwt-decode";
+import "./App.js";
 
 // Key name for storing token in localStorage for "remember me" re-login
-export const TOKEN_STORAGE_ID = "jobly-token";
+export const TOKEN_STORAGE_ID = "pantry-token";
 
-/** Jobly application.
+/**  Pantry.
  *
- * - applicationIds: for logged in users, this is a set of application Ids
- *   for applied jobs.
+
  *
  * - currentUser: user obj from API. This becomes the canonical way to tell
  *   if someone is logged in. This is passed around via context throughout app,
@@ -28,22 +28,11 @@ export const TOKEN_STORAGE_ID = "jobly-token";
  */
 
 function App() {
-  const [applicationIds, setApplicationIds] = useState(new Set([]));
   const [currentUser, setCurrentUser] = useState({
     data: null,
     infoLoaded: false,
   });
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
-
-  console.debug(
-    "App",
-    "applicationIds=",
-    applicationIds,
-    "currentUser=",
-    currentUser,
-    "token=",
-    token
-  );
 
   // Load user info from API. Until a user is logged in and they have a token,
   // this should not run. It only needs to re-run when a user logs out, so
@@ -58,14 +47,13 @@ function App() {
           try {
             let { username } = jwtDecode(token);
             // put the token on the Api class so it can use it to call the API.
-            JoblyApi.token = token;
-            let currentUser = await JoblyApi.getCurrentUser(username);
+            PantryApi.token = token;
+            let currentUser = await PantryApi.getCurrentUser(username);
 
             setCurrentUser({
               infoLoaded: true,
               data: currentUser,
             });
-            setApplicationIds(new Set(currentUser.applications));
           } catch (err) {
             console.error("App loadUserInfo: problem loading", err);
             setCurrentUser({
@@ -87,13 +75,42 @@ function App() {
 
   /** Handles site-wide logout. */
   function logout() {
-    setApplicationIds(new Set([]));
     setCurrentUser({
       infoLoaded: true,
       data: null,
     });
     setToken(null);
   }
+  const APP_ID = "7b6c2d47";
+  const APP_KEY = "af40240534cc234b22bad502cf32424f";
+
+  const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("chicken");
+
+  useEffect(() => {
+    getRecipes();
+  }, [query]);
+
+  const getRecipes = async () => {
+    const response = await fetch(
+      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+    );
+    const data = await response.json();
+    setRecipes(data.hits);
+    console.log(data.hits);
+  };
+
+  const updateSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(search);
+  };
+
+  const getSearch = (e) => {
+    e.preventDefault();
+    setQuery(search);
+    setSearch("");
+  };
 
   /** Handles site-wide signup.
    *
@@ -102,7 +119,7 @@ function App() {
    * Make sure you await this function to see if any error happens.
    */
   async function signup(signupData) {
-    let token = await JoblyApi.signup(signupData);
+    let token = await PantryApi.signup(signupData);
     setToken(token);
   }
 
@@ -113,20 +130,8 @@ function App() {
    * Make sure you await this function to see if any error happens.
    */
   async function login(loginData) {
-    let token = await JoblyApi.login(loginData);
+    let token = await PantryApi.login(loginData);
     setToken(token);
-  }
-
-  /** Checks if a job has been applied for. */
-  function hasAppliedToJob(id) {
-    return applicationIds.has(id);
-  }
-
-  /** Apply to a job: make API call and update set of application IDs. */
-  function applyToJob(id) {
-    if (hasAppliedToJob(id)) return;
-    JoblyApi.applyToJob(currentUser.username, id);
-    setApplicationIds(new Set([...applicationIds, id]));
   }
 
   if (!currentUser.infoLoaded) return <LoadingSpinner />;
@@ -136,8 +141,6 @@ function App() {
       value={{
         currentUser: currentUser.data,
         setCurrentUser,
-        hasAppliedToJob,
-        applyToJob,
       }}
     >
       <div className="App">

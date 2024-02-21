@@ -12,7 +12,7 @@ function Navigation({ logout }) {
   function loggedInNav() {
     return (
       <ul className="nav-list">
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <NavLink className="nav-link" to="/companies">
             Companies
           </NavLink>
@@ -21,14 +21,45 @@ function Navigation({ logout }) {
           <NavLink className="nav-link" to="/jobs">
             Jobs
           </NavLink>
+        </li> */}
+        <li className="nav-item">
+          <NavLink
+            className="text-2xl sm:text-2xl
+                                   md:text-2xl lg:text-2xl
+                                   font-extrabold tracking-tight text-white"
+            to="/items"
+          >
+            Items
+          </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/profile">
+          <NavLink
+            className="text-2xl sm:text-2xl
+                                   md:text-2xl lg:text-2xl
+                                   font-extrabold tracking-tight text-white"
+            to="/recipes"
+          >
+            Recipe
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            className="text-2xl sm:text-2xl
+                                   md:text-2xl lg:text-2xl
+                                   font-extrabold tracking-tight text-white"
+            to="/profile"
+          >
             Profile
           </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link nav-link-logout" to="/" onClick={logout}>
+          <Link
+            className="text-2xl sm:text-2xl
+                                   md:text-2xl lg:text-1xl
+                                   font-extrabold tracking-tight text-white nav-link-logout"
+            to="/"
+            onClick={logout}
+          >
             Log out {currentUser.first_name || currentUser.username}
           </Link>
         </li>
@@ -55,8 +86,13 @@ function Navigation({ logout }) {
 
   return (
     <nav className="navbar">
-      <Link className="navbar-brand-jobly" to="/">
-        Jobly
+      <Link
+        className="text-2xl sm:text-2xl
+                                   md:text-2xl lg:text-4xl
+                                   font-extrabold tracking-tight text-white"
+        to="/"
+      >
+        My Pantry
       </Link>
       <ul className="nav-list">
         {currentUser ? loggedInNav() : loggedOutNav()}

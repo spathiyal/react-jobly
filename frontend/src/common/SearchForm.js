@@ -32,20 +32,48 @@ function SearchForm({ searchFor }) {
   }
 
   return (
-      <div className="SearchForm mb-4">
-        <form className="form-inline" onSubmit={handleSubmit}>
+    <div
+      className="container mx-auto mt-8 p-4
+      sm:px-6 lg:px-8"
+    >
+      <form
+        className="bg-white p-4 sm:p-6
+                               lg:p-8 rounded-lg shadow-md
+                               flex flex-col sm:flex-row items-center
+                               justify-center space-y-4 sm:space-y-0
+                               sm:space-x-4"
+        onSubmit={handleSubmit}
+      >
+        <div
+          className="relative justify-center flex-grow
+                                    w-full sm:w-1/2"
+        >
           <input
-              className="form-control form-control-lg flex-grow-1"
-              name="searchTerm"
-              placeholder="Enter search term.."
-              value={searchTerm}
-              onChange={handleChange}
+            className="w-full py-3 px-4 bg-gray-100
+              border border-blue-300 focus:ring-blue-500
+              focus:border-blue-500 rounded-full
+              text-gray-700 outline-none transition-colors
+              duration-200 ease-in-out focus:ring-2
+              focus:ring-blue-900 focus:bg-transparent
+              focus:shadow-md"
+            name="searchTerm"
+            placeholder="Enter search term.."
+            value={searchTerm}
+            onChange={handleChange}
           />
-          <button type="submit" className="btn btn-lg btn-primary">
-            Submit
-          </button>
-        </form>
-      </div>
+        </div>
+        <button
+          type="submit"
+          className="bg-amber-900 hover:bg-amber-600 focus:ring-2
+                        focus:ring-blue-900 text-white font-semibold py-3 px-6
+                        rounded-full transform hover:scale-105 transition-transform
+                        focus:outline-none focus:ring-offset-2
+                        focus:ring-offset-blue-700"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   );
 }
 

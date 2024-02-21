@@ -1,51 +1,40 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "../homepage/Homepage";
-import CompanyList from "../companies/CompanyList";
-import JobList from "../jobs/JobList";
-import CompanyDetail from "../companies/CompanyDetail";
 import LoginForm from "../auth/LoginForm";
 import ProfileForm from "../profiles/ProfileForm";
 import SignupForm from "../auth/SignupForm";
-
-/** Site-wide routes.
- *
- * Parts of site should only be visitable when logged in.
- *
- * Visiting a non-existant route navigates to the homepage.
- */
+import ItemList from "../items/ItemList";
+import RecipeList from "../recipe/RecipeList";
+import ItemCreate from "../items/ItemCreate";
+import ItemEdit from "../items/ItemEdit";
+import ItemDelete from "../items/ItemDelete";
 
 function RoutesList({ login, signup, currentUser }) {
-  console.debug(
-    "Routes",
-    `login=${typeof login}`,
-    `register=${typeof register}`
-  );
-
   return (
-    <div className="pt-5">
-      <Routes>
-        {!currentUser && (
-          <>
-            <Route path="/login" element={<LoginForm login={login} />} />
-            <Route path="/signup" element={<SignupForm signup={signup} />} />
-          </>
-        )}
+    <Routes>
+      {!currentUser && (
+        <>
+          <Route path="/login" element={<LoginForm login={login} />} />
+          <Route path="/signup" element={<SignupForm signup={signup} />} />
+        </>
+      )}
 
-        <Route path="/" element={<Homepage />} />
+      <Route path="/" element={<Homepage />} />
 
-        {currentUser && (
-          <>
-            <Route path="/companies" element={<CompanyList />} />
-            <Route path="/jobs" element={<JobList />} />
-            <Route path="/companies/:handle" element={<CompanyDetail />} />
-            <Route path="/profile" element={<ProfileForm />} />
-          </>
-        )}
+      {currentUser && (
+        <>
+          <Route path="/items" element={<ItemList />} />
+          <Route path="/items/create" element={<ItemCreate />} />
+          <Route path="/items/:id/edit" element={<ItemEdit />} />
+          <Route path="/items/:id/delete" element={<ItemDelete />} />
+          <Route path="/recipes" element={<RecipeList />} />
+          <Route path="/profile" element={<ProfileForm />} />
+        </>
+      )}
 
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </div>
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
   );
 }
 
